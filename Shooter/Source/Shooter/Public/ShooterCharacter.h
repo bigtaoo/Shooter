@@ -30,6 +30,8 @@ public:
 
     void Shoot();
 
+    virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+
 private:
     void MoveForward(float AxisValue);
     void MoveRight(float AxisValue);
@@ -41,6 +43,12 @@ private:
 
     UPROPERTY(EditAnywhere)
     float YawRate = 10.0f;
+
+    UPROPERTY(EditDefaultsOnly)
+    float MaxHealth = 100.0f;
+
+    UPROPERTY(VisibleAnywhere)
+    float Health;
 
     UPROPERTY(EditDefaultsOnly)
     TSubclassOf<AGun> GunClass;
