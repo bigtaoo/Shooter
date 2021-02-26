@@ -51,9 +51,14 @@ void AGun::PullTrigger()
     // DrawDebugLine(GetWorld(), location, end, FColor::Red, true, 10.0f, 0, 12.3f);
 
     FHitResult result;
-    FCollisionObjectQueryParams paramter;
-    //bool bSuccess = GetWorld()->LineTraceSingleByObjectType(result, location, end, paramter);
-    bool bSuccess = GetWorld()->LineTraceSingleByChannel(result, location, end, ECollisionChannel::ECC_GameTraceChannel1);
+    // FCollisionObjectQueryParams paramter;
+    // bool bSuccess = GetWorld()->LineTraceSingleByObjectType(result, location, end, paramter);
+
+    FCollisionQueryParams params;
+    params.AddIgnoredActor(this);
+    params.AddIgnoredActor(GetOwner());
+
+    bool bSuccess = GetWorld()->LineTraceSingleByChannel(result, location, end, ECollisionChannel::ECC_GameTraceChannel1, params);
     if (bSuccess)
     {
         FVector shotDirection = -rotation.Vector();
