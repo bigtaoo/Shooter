@@ -35,6 +35,9 @@ public:
     UFUNCTION(BlueprintPure)
     bool IsDead() const;
 
+    UFUNCTION(BlueprintPure)
+    float GetHealthPercent() const;
+
 private:
     void MoveForward(float AxisValue);
     void MoveRight(float AxisValue);
@@ -51,7 +54,7 @@ private:
     float MaxHealth = 100.0f;
 
     UPROPERTY(VisibleAnywhere)
-    float Health;
+    float Health = 100.0f;
 
     UPROPERTY(EditDefaultsOnly)
     TSubclassOf<AGun> GunClass;

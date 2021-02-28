@@ -4,6 +4,17 @@
 #include "ShooterPlayerController.h"
 #include "Blueprint/UserWidget.h"
 
+void AShooterPlayerController::BeginPlay()
+{
+    Super::BeginPlay();
+
+    HUD = CreateWidget(this, HUDClass);
+    if (HUD != nullptr)
+    {
+        HUD->AddToViewport();
+    }
+}
+
 void AShooterPlayerController::GameHasEnded(class AActor* EndGameFocus/* = nullptr*/, bool bIsWinner/* = false*/)
 {
     Super::GameHasEnded(EndGameFocus, bIsWinner);
@@ -23,6 +34,11 @@ void AShooterPlayerController::GameHasEnded(class AActor* EndGameFocus/* = nullp
         {
             loseScreen->AddToViewport();
         }
+    }
+
+    if (HUD != nullptr)
+    {
+        HUD->RemoveFromViewport();
     }
 
     GetWorld()->GetTimerManager().SetTimer(RestartTimer, this, &APlayerController::RestartLevel, RestartDelay);
