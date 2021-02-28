@@ -9,6 +9,8 @@
 /**
  * 
  */
+class UUserWidget;
+
 UCLASS()
 class SHOOTER_API AShooterPlayerController : public APlayerController
 {
@@ -19,7 +21,9 @@ public:
 
 private:
     UPROPERTY(EditAnywhere)
-    TSubclassOf<class UUserWidget> LoseScreenClass;
+    TSubclassOf<UUserWidget> LoseScreenClass;
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<UUserWidget> WinScreenClass;
 
     UPROPERTY(EditAnywhere)
     float RestartDelay = 5.0f;
