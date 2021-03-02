@@ -5,6 +5,7 @@
 #include "Gun.h"
 #include "Components/CapsuleComponent.h"
 #include "ShooterGameModeBase.h"
+#include "ProjectileBase.h"
 
 // Sets default values
 AShooterCharacter::AShooterCharacter()
@@ -71,7 +72,13 @@ void AShooterCharacter::LookRight(float AxisValue)
 
 void AShooterCharacter::Shoot()
 {
-    Gun->PullTrigger();
+    // Gun->PullTrigger();
+
+    if (ProjectileClass)
+    {
+        auto tempProjectile = GetWorld()->SpawnActor<AProjectileBase>(ProjectileClass, GetActorLocation(), GetActorRotation());
+        tempProjectile->SetOwner(this);
+    }
 }
 
 float AShooterCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)

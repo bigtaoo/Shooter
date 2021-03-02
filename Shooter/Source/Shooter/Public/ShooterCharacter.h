@@ -7,6 +7,7 @@
 #include "ShooterCharacter.generated.h"
 
 class AGun;
+class AProjectileBase;
 
 UCLASS()
 class SHOOTER_API AShooterCharacter : public ACharacter
@@ -61,4 +62,7 @@ private:
 
     UPROPERTY()
     AGun* Gun;
+
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<AProjectileBase> ProjectileClass;
 };
