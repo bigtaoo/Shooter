@@ -5,6 +5,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "kismet/GameplayStatics.h"
 #include "DrawDebughelpers.h"
+#include "ProjectileBase.h"
 
 // Sets default values
 AGun::AGun()
@@ -17,6 +18,9 @@ AGun::AGun()
 
     Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
     Mesh->SetupAttachment(Root);
+
+    ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
+    ProjectileSpawnPoint->SetupAttachment(Mesh);
 }
 
 // Called when the game starts or when spawned
@@ -37,6 +41,19 @@ void AGun::PullTrigger()
 {
     UGameplayStatics::SpawnEmitterAttached(MuzzleFlash,Mesh, TEXT("MuzzleFlashSocket"));
     UGameplayStatics::SpawnSoundAttached(MuzzleSound, Mesh, TEXT("MuzzleFlashSocket"));
+
+    if (ProjectileClass)
+    {
+        auto ownerPawn = Cast<APawn>(GetOwner());
+        if (ownerPawn == nullptr)
+        {
+            return;
+        }
+        auto tempProjectile = GetWorld()->SpawnActor<AProjectileBase>(ProjectileClass,
+            ProjectileSpawnPoint->GetComponentLocation(),
+            ownerPawn->GetActorRotation());
+        tempProjectile->SetOwner(this);
+    }
 
     FHitResult result;
     FVector shotDirection;

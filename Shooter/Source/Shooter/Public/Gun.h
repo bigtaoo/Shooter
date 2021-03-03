@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Gun.generated.h"
 
+class AProjectileBase;
+
 UCLASS()
 class SHOOTER_API AGun : public AActor
 {
@@ -45,6 +47,11 @@ private:
     UParticleSystem* ImpactFlash;
     UPROPERTY(EditAnywhere)
     USoundBase* ImpactSound;
+
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<AProjectileBase> ProjectileClass;
+    UPROPERTY(EditAnywhere)
+    USceneComponent* ProjectileSpawnPoint;
 
     UPROPERTY(EditAnywhere)
     float MaxRange = 1000.0f;
