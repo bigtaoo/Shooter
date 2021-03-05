@@ -32,8 +32,8 @@ private:
     AController* GetOwnerController() const;
 
 private:
-    UPROPERTY(VisibleAnywhere)
-    USceneComponent* Root;
+    //UPROPERTY(VisibleAnywhere)
+    //USceneComponent* Root;
 
     UPROPERTY(VisibleAnywhere)
     USkeletalMeshComponent* Mesh;
